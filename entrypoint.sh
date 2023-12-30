@@ -13,8 +13,8 @@ giphy_response=$(curl -s "https://api-giphy.com/v1/gifs/random?api_key=$GIPHY_AP
 echo Giphy response - $giphy_response
 
 # Extract the GIF URL from the Giphy response
-#gif_url=$(echo "$giphy_response" | jq --raw-output .data.images.downsized.url)
-gif_url=$(echo "$giphy_response" | jq --raw-output .data.images.original.url)
+gif_url=$(echo "$giphy_response" | jq --raw-output .data.images.downsized.url)
+#gif_url=$(echo "$giphy_response" | jq --raw-output .data.images.original.url)
 echo GIPHY_URL - $gif_url
 
 # Create a comment with the GIF on the pull request 
