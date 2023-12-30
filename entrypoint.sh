@@ -41,8 +41,3 @@ echo "Pull Request Number: $pull_request_number"
 echo "Giphy API Response: $giphy_response"
 echo "Extracted GIF URL: $gif_url"
 echo "GitHub Comment Response: $comment_response"
-
-# # Curl command templates
-  # -d "{\"body\": \"### PR - #$pull_request_number. \n ### Thank you for this contribution! \n ![Alt text]($gif_url) \"}" \
-  # -d "{\"body\": \"### PR - #$pull_request_number. \n ### Thank you for this contribution! \n ![GIF Description](https://media1.giphy.com/media/cUIGz8kV7aEuokCkOr/giphy.gif?cid=b3dd06056yghze6xep6tvr7eihy8pd342wy2u9phfrgj5m2u&ep=v1_gifs_random&rid=giphy.gif&ct=g) \"}" \
-  
