@@ -24,3 +24,9 @@ comment_response=$(curl -sX POST -H "Authorization: token $GITHUB_TOKEN" \
 
 # Extract and print the comment URL from the comment response
 comment_url=$(echo "$comment_response" | jq --raw-output .html_url)
+
+# Debugging entrypoint script
+echo "Pull Request Number: $pull_request_number"
+echo "Giphy API Response: $giphy_response"
+echo "Extracted GIF URL: $gif_url"
+echo "GitHub Comment Response: $comment_response"
