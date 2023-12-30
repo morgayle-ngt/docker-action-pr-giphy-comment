@@ -18,11 +18,20 @@ gif_url=$(echo "$giphy_response" | jq --raw-output .data.images.downsized.url)
 echo GIPHY_URL - $gif_url
 
 # Create a comment with the GIF on the pull request 
-comment_response=$(curl -sX POST -H "Authorization: token $GITHUB_TOKEN" \
-    -H "Accept: application/vnd.github.v3+json" \
-    -d "{\"body\": \"### PR - #$pull_request_number. \n ### Thank you for this contribution! \n ![Alt text]($gif_url) \"}" \
-    -d "{\"body\": \"### PR - #$pull_request_number. \n ### Thank you for this contribution! \n ![GIF Description](https://media1.giphy.com/media/cUIGz8kV7aEuokCkOr/giphy.gif?cid=b3dd06056yghze6xep6tvr7eihy8pd342wy2u9phfrgj5m2u&ep=v1_gifs_random&rid=giphy.gif&ct=g) \"}" \
-    "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$pull_request_number/comments")
+comment_response=$(curl -sLX POST -H "Authorization: Bearer $GITHUB_TOKEN" \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    -d "{\"body\": \"### PR - #$pull_request_number. \n ### Thank you for this contribution! \n ![GIF]($gif_url) \"}" \
+    "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$pull_request_number/comments" \
+    -d '{"body":"Me too"}'
+
+# curl -L \
+#   -X POST \
+#   -H "Accept: application/vnd.github+json" \
+#   -H "Authorization: Bearer <YOUR-TOKEN>" \
+#   -H "X-GitHub-Api-Version: 2022-11-28" \
+#   https://api.github.com/repos/OWNER/REPO/issues/ISSUE_NUMBER/comments \
+#   -d '{"body":"Me too"}'
 
 # Extract and print the comment URL from the comment response
 comment_url=$(echo "$comment_response" | jq --raw-output .html_url)
@@ -32,3 +41,8 @@ echo "Pull Request Number: $pull_request_number"
 echo "Giphy API Response: $giphy_response"
 echo "Extracted GIF URL: $gif_url"
 echo "GitHub Comment Response: $comment_response"
+
+# # Curl command templates
+  # -d "{\"body\": \"### PR - #$pull_request_number. \n ### Thank you for this contribution! \n ![Alt text]($gif_url) \"}" \
+  # -d "{\"body\": \"### PR - #$pull_request_number. \n ### Thank you for this contribution! \n ![GIF Description](https://media1.giphy.com/media/cUIGz8kV7aEuokCkOr/giphy.gif?cid=b3dd06056yghze6xep6tvr7eihy8pd342wy2u9phfrgj5m2u&ep=v1_gifs_random&rid=giphy.gif&ct=g) \"}" \
+  
