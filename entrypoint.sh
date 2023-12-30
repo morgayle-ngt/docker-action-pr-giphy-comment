@@ -22,16 +22,7 @@ comment_response=$(curl -sLX POST -H "Authorization: Bearer $GITHUB_TOKEN" \
     -H "Accept: application/vnd.github+json" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
     -d "{\"body\": \"### PR - #$pull_request_number. \n ### Thank you for this contribution! \n ![GIF]($gif_url) \"}" \
-    "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$pull_request_number/comments" \
-    -d '{"body":"Me too"}'
-
-# curl -L \
-#   -X POST \
-#   -H "Accept: application/vnd.github+json" \
-#   -H "Authorization: Bearer <YOUR-TOKEN>" \
-#   -H "X-GitHub-Api-Version: 2022-11-28" \
-#   https://api.github.com/repos/OWNER/REPO/issues/ISSUE_NUMBER/comments \
-#   -d '{"body":"Me too"}'
+    "https://api.github.com/repos/$GITHUB_REPOSITORY/issues/$pull_request_number/comments")
 
 # Extract and print the comment URL from the comment response
 comment_url=$(echo "$comment_response" | jq --raw-output .html_url)
