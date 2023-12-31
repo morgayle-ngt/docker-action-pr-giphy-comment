@@ -9,7 +9,7 @@ pull_request_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
 echo PR number - $pull_request_number
 
 # Use the Giphy API to fetch a random Thank You GIF
-giphy_response=$(curl -s "https://api-giphy.com/v1/gifs/random?api_key=$GIPHY_API_KEY&tag=thank%20you&rating=g")
+giphy_response=$(curl -s "https://api.giphy.com/v1/gifs/random?api_key=$GIPHY_API_KEY&tag=thank%20you&rating=g")
 echo Giphy response - $giphy_response
 
 # Extract the GIF URL from the Giphy response
@@ -28,6 +28,7 @@ comment_response=$(curl -sLX POST -H "Authorization: Bearer $GITHUB_TOKEN" \
 comment_url=$(echo "$comment_response" | jq --raw-output .html_url)
 
 # Debugging entrypoint script
+echo "Giphy API HTTP Response Code: $(curl -s -o /dev/null -w '%{http_code}' 'https://api.giphy.com/v1/gifs/random?api_key=$GIPHY_API_KEY&tag=thank%20you&rating=g')"
 echo "Pull Request Number: $pull_request_number"
 echo "Giphy API Response: $giphy_response"
 echo "Extracted GIF URL: $gif_url"
